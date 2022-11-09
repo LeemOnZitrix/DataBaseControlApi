@@ -10,21 +10,28 @@ namespace DataBaseControlApi.Core
 {
     public class Connection
     {
+        private readonly Operations _operations;
+
+        public Connection(Operations operations)
+        {
+            _operations = operations;
+        }
         public async Task<IEnumerable<Ksiazka>> Getksiazka()
         {
-            Operations connection = new Operations();
-            IEnumerable<Ksiazka> ksiazkas = await connection.ShowKsiazkas();
+            IEnumerable<Ksiazka> ksiazkas = await _operations.ShowKsiazkas();
             return ksiazkas;
+        }
+        public async Task<Ksiazka?> Findksiazka(int id)
+        {
+            return await _operations.FindKsiazkas(id);
         }
         public async Task Addksiazka(Ksiazka ksiazka)
         {
-            Operations connection = new Operations();
-            await connection.AddKsiazkas(ksiazka);
+            await _operations.AddKsiazkas(ksiazka);
         }
         public async Task Deleteksiazka(int id)
         {
-            Operations connection = new Operations();
-            await connection.DeleteKsiazkas(id);
+            await _operations.DeleteKsiazkas(id);
         }
 
     }
