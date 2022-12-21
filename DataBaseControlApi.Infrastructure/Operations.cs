@@ -1,10 +1,7 @@
-﻿using System;
-using Dapper;
+﻿using Dapper;
 using System.Data.SqlClient;
 using System.Data;
-using System.Threading.Tasks;
 using DataBaseControlApi.Infrastructure.Models;
-using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 
 namespace DataBaseControlApi.Infrastructure
@@ -17,34 +14,35 @@ namespace DataBaseControlApi.Infrastructure
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<Ksiazka>> ShowKsiazkas()
+        public async Task<IEnumerable<Book>> ShowBooks()
         {
 
             using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString("MainDataBase"));
 
-            var ksiazki = await connection.QueryAsync<Ksiazka>("SELECT * FROM ksiazki");
+            var ksiazki = await connection.QueryAsync<Book>("SELECT * FROM ksiazki");
 
             return ksiazki;
         }
-        public async Task<Ksiazka?> FindKsiazkas(int id)
+        public async Task<Book?> FindBooks(int id)
         {
 
             using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString("MainDataBase"));
 
-            var ksiazki = await connection.QueryAsync<Ksiazka>("SELECT * FROM ksiazki");
+            var ksiazki = await connection.QueryAsync<Book>("SELECT * FROM ksiazki");
 
             return ksiazki.FirstOrDefault(x => x.Id_ksiazka == id);
         }
-        public async Task AddKsiazkas(Ksiazka ksiazka)
+        public async Task AddBooks(Book ksiazka)
         {
             var parameters = new { Id = ksiazka.Id_ksiazka, Title = ksiazka.Tytul, Year = ksiazka.Rok_Wydania };
             var sqlstring = "INSERT INTO ksiazki (id_ksiazka, tytul, rok_wydania) VALUES (@Id, @Title , @Year)";
+
             using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString("MainDataBase"));
 
             await connection.QueryAsync(sqlstring, parameters);
 
         }
-        public async Task DeleteKsiazkas(int id)
+        public async Task RemoveBooks(int id)
         {
             using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString("MainDataBase"));
 

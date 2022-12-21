@@ -15,24 +15,24 @@ namespace DataBaseControlApi.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<IEnumerable<Ksiazka>> Get()
+        public async Task<IEnumerable<Book>> Get()
         {
-            return await _connection.Getksiazka();
+            return await _connection.GetBook();
         }
         [HttpGet("Find")]
-        public async Task<Ksiazka?> Find(int id)
+        public async Task<Book?> Find(int id)
         {
-            return await _connection.Findksiazka(id);
+            return await _connection.FindBook(id);
         }
         [HttpPost("Add")]
-        public async Task Add([FromBody] Ksiazka model)
+        public async Task Add([FromBody] Book model)
         {
-            await _connection.Addksiazka(model);
+            await _connection.AddBook(model);
         }
         [HttpDelete("Del")]
         public async Task Delete([FromQuery] int id)
         {
-            await _connection.Deleteksiazka(id);
+            await _connection.RemoveBook(id);
         }
     }
 }

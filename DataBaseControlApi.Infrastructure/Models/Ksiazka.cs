@@ -1,6 +1,6 @@
 ﻿namespace DataBaseControlApi.Infrastructure.Models
-{ 
-    public class Ksiazka
+{
+    public class Book
     {
         public int Id_ksiazka { get; set; }
         public string? Tytul { get; set; }

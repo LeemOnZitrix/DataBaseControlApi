@@ -1,10 +1,5 @@
 ﻿using DataBaseControlApi.Infrastructure;
 using DataBaseControlApi.Infrastructure.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataBaseControlApi.Core
 {
@@ -16,22 +11,22 @@ namespace DataBaseControlApi.Core
         {
             _operations = operations;
         }
-        public async Task<IEnumerable<Ksiazka>> Getksiazka()
+        public async Task<IEnumerable<Book>> GetBook()
         {
-            IEnumerable<Ksiazka> ksiazkas = await _operations.ShowKsiazkas();
+            IEnumerable<Book> ksiazkas = await _operations.ShowBooks();
             return ksiazkas;
         }
-        public async Task<Ksiazka?> Findksiazka(int id)
+        public async Task<Book?> FindBook(int id)
         {
-            return await _operations.FindKsiazkas(id);
+            return await _operations.FindBooks(id);
         }
-        public async Task Addksiazka(Ksiazka ksiazka)
+        public async Task AddBook(Book ksiazka)
         {
-            await _operations.AddKsiazkas(ksiazka);
+            await _operations.AddBooks(ksiazka);
         }
-        public async Task Deleteksiazka(int id)
+        public async Task RemoveBook(int id)
         {
-            await _operations.DeleteKsiazkas(id);
+            await _operations.RemoveBooks(id);
         }
 
     }
