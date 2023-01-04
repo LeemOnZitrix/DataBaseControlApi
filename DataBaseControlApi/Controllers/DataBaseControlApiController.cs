@@ -8,21 +8,21 @@ namespace DataBaseControlApi.Controllers
     [Route("[controller]")]
     public class DataBaseControlApiController : ControllerBase
     {
-        private readonly Connection _connection;
-        public DataBaseControlApiController(Connection connection)
+        private readonly UnitOfWork _connection;
+        public DataBaseControlApiController(UnitOfWork connection)
         {
             _connection = connection;
         }
 
         [HttpGet("Get")]
-        public async Task<IEnumerable<Book>> Get()
+        public async Task<IEnumerable<Book>> ReadBooks()
         {
-            return await _connection.GetBook();
+            return await _connection.ReadBooks();
         }
         [HttpGet("Find")]
         public async Task<Book?> Find(int id)
         {
-            return await _connection.FindBook(id);
+            return await _connection.GetBook(id);
         }
         [HttpPost("Add")]
         public async Task Add([FromBody] Book model)
@@ -32,7 +32,12 @@ namespace DataBaseControlApi.Controllers
         [HttpDelete("Del")]
         public async Task Delete([FromQuery] int id)
         {
-            await _connection.RemoveBook(id);
+            await _connection.DeleteBook(id);
         }
+        [HttpPut("Put")]
+        public async Task UpdateBook([FromBody] Book model)
+        {
+            await _connection.UpdateBook(model);
+        }        
     }
 }
